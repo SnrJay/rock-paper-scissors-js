@@ -2,11 +2,13 @@
 let userScore = 0;
 let cpuScore = 0;
 
-// create the options
-let options = ['Rock', 'Paper', 'Scissors'];
+
 
 // create computer's logic
 function cpuPick() {
+    // create the options
+    let options = ['rock', 'paper', 'scissors'];
+
     let choice = Math.floor(Math.random() * options.length);
 
     return options[choice];
@@ -15,56 +17,39 @@ function cpuPick() {
 //Ask user for input
 function userPick() {
     let myChoice = prompt("Rock, Paper or Scissors?");
-    console.log(typeof(myChoice));
+    //console.log(typeof(myChoice));
 
-    return myChoice;
+    return myChoice.toLowerCase();
 }
 
 //play a round
 function playRound(user, cpu) {
-    if (user == "Rock" && cpu == "Paper") {
 
-        cpuScore++;
-
-        console.log("Paper covers Rock, you lose!");
-    } 
-    else if (user == 'Paper' && cpu == 'Scissors') {
-
-        cpuScore++;
-
-        console.log("Scissors cuts Paper, you lose!");
+    let winObj = {
+        rock: 'scissors',
+        paper: 'rock',
+        scissors: 'paper'
     }
-    else if (user == 'Scissors' && cpu == 'Rock') {
 
-        cpuScore++;
-
-        console.log("Rock breaks Scissors, you lose!");
-    }
-    else if (user == 'Rock' && cpu == 'Scissors') {
-
-        userScore++;
-
-        console.log("Rock breaks Scissors, you win!");
-    }
-    else if (user == 'Scissors' && cpu == 'Paper') {
-
-        userScore++;
-
-        console.log("Scissors cuts Paper, you win!");
-    } 
-    else if (user == 'Paper' && cpu == 'Rock') {
-
-        userScore++
-
-        console.log("Paper covers Rock, you win!");
-    }
-    else if (user == cpu) {
+    if (user === cpu) {
 
         userScore++;
         cpuScore++;
 
         console.log("Its a Draw!");
     }
+    else if (winObj[user] === cpu) {
+
+        userScore++;
+
+        console.log(`${user} beats ${cpu}, You Win!`);
+    }
+    else {
+
+        cpuScore++;
+
+        console.log(`${cpu} beats ${user}, You Lose!`);
+    } 
 }
 
 //play the whole game
@@ -77,10 +62,12 @@ function playGame() {
         console.log(`User Score: ${userScore}, CPU Score: ${cpuScore}`)
     }
 
-    if (userScore > cpuScore) {
-        alert("Congratulations you win!")
+    if (userScore === cpuScore) {
+        alert("its a Draw!");
+    } else if (userScore > cpuScore) {
+        alert("Awesome you win!");
     } else {
-        alert("You lost! Better luck next time")
+        alert("Better luck next time");
     }
 }
 
